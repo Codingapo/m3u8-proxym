@@ -6,8 +6,8 @@ import * as BunnySDK from "https://esm.sh/@bunny.net/edgescript-sdk@0.11.2";
  */
 
 // Default server URL provided manually
-const web_server_url = "<public_url_of_edge_script>"; // Replace this with your public URL
-const REFERER = "<custom_referer>";
+const web_server_url = "https://anyapo.vercel.app/"; // Replace this with your public URL
+const REFERER = "https://vidwish.live/";
 
 BunnySDK.net.http.serve(async (request) => {
   const url = new URL(request.url);
