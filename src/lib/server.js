@@ -8,12 +8,18 @@ const host = process.env.HOST || "127.0.0.1";
 const port = process.env.PORT || 8080;
 const web_server_url = process.env.PUBLIC_URL || `http://${host}:${port}`;
 
+// Always include your production front-end URL
+const defaultAllowedOrigins = ["https://anyapo.vercel.app"];
+
+// Merge with environment variable if provided
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? [...defaultAllowedOrigins, ...process.env.ALLOWED_ORIGINS.split(",")]
+  : defaultAllowedOrigins;
+
 export default function server() {
   createServer({
     originBlacklist: [],
-    originWhitelist: process.env.ALLOWED_ORIGINS
-      ? process.env.ALLOWED_ORIGINS.split(",")
-      : [],
+    originWhitelist: allowedOrigins,
     requireHeader: [],
     removeHeaders: [
       "cookie",
@@ -28,9 +34,12 @@ export default function server() {
     httpProxyOptions: {
       xfwd: false,
     },
-  }).listen(port, Number(host), function () {
+  }).listen(port, host, function () {
     console.log(
-      colors.green("Server running on ") + colors.blue(`${web_server_url}`)
+      colors.green("Server running on: ") + colors.blue(`${web_server_url}`)
+    );
+    console.log(
+      colors.yellow("Allowed origins: ") + colors.cyan(allowedOrigins.join(", "))
     );
   });
 }
