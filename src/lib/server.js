@@ -9,7 +9,7 @@ const port = process.env.PORT || 8080;
 const web_server_url = process.env.PUBLIC_URL || `http://${host}:${port}`;
 
 // Always include your production front-end URL
-const defaultAllowedOrigins = ["https://anyapo.vercel.app"];
+const defaultAllowedOrigins = ["https://anyapo.vercel.app", "https://api.animapo.fun"];
 
 // Merge with environment variable if provided
 const allowedOrigins = process.env.ALLOWED_ORIGINS
